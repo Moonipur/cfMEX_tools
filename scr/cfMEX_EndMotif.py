@@ -4,29 +4,17 @@ By: Songphon Sutthitthasakul (Moon)
 Date: 20-05-2025
 """
 
-from __init__ import *
-import os
+import __init__ 
 import pysam
-import argparse
 import itertools
 import pandas as pd
 from Bio import SeqIO
-from time import time
 from subprocess import run
 from collections import Counter
-from multiprocessing import Pool
-
-#################################################################################################################
-# SETTING
-
-Reference_Genome = '/mnt/sas/ref/hg38/v0/Homo_sapiens_assembly38.fasta'
-EM_window = 'EM_Window.csv'
-
-#################################################################################################################
 
 class cfMex_EM:
     def __init__(self):
-        self.reference = SeqIO.to_dict(SeqIO.parse(Reference_Genome, 'fasta'))
+        self.reference = SeqIO.to_dict(SeqIO.parse(__init__.Reference_Genome, 'fasta'))
         self.nuc_dict = {}
     
     @staticmethod
@@ -79,31 +67,7 @@ class cfMex_EM:
             run(['echo', f'{Id},{",".join(sum_data)}'], stdout=outfile)
 
 
-
-def EM_Run(loc):
+def EM_Run(loc, Input, Id):
     for locate in loc:
         new_EM = cfMex_EM()
-        new_EM.count_reads(locate, args.input, args.id)
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Extract End-motif feature from cfDNA Fragment file.")
-    parser.add_argument("--input", '-i', type=str, help="Fragment file path", required=True)
-    parser.add_argument("--output", '-o', type=str, help="Output file name", required=False, default='EM_output')
-    parser.add_argument("--id", type=str, help="Sample ID", required=False)
-    parser.add_argument("--thread", '-t', type=int, help="Number of Threads (default: 2, max: 24)", required=False, default=2)
-    args = parser.parse_args()
-
-    start_time = time()
-
-    location = Threads_Location(EM_window, args.thread)
-    
-    if args.thread > 24:
-        args.thread = 24
-        
-    with Pool(args.thread) as p:
-        p.map(EM_Run, location)
-    cfMex_EM().save_csv(args.id, args.output)
-    os.remove(f'{args.id}_Metadata.csv')
-    
-    Time_Stamp(start_time)
+        new_EM.count_reads(locate, Input, Id)
