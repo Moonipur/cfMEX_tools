@@ -91,13 +91,16 @@ if __name__ == "__main__":
     parser.add_argument("--input", '-i', type=str, help="Fragment file path", required=True)
     parser.add_argument("--output", '-o', type=str, help="Output file name", required=False, default='EM_output')
     parser.add_argument("--id", type=str, help="Sample ID", required=False)
-    parser.add_argument("--thread", '-t', type=int, help="Number of Threads (default: 2)", required=False, default=2)
+    parser.add_argument("--thread", '-t', type=int, help="Number of Threads (default: 2, max: 24)", required=False, default=2)
     args = parser.parse_args()
 
     start_time = time()
 
     location = Threads_Location(EM_window, args.thread)
-
+    
+    if args.thread > 24:
+        args.thread = 24
+        
     with Pool(args.thread) as p:
         p.map(EM_Run, location)
     cfMex_EM().save_csv(args.id, args.output)
