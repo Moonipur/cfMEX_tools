@@ -1,2 +1,2 @@
-from locSeparateThreads import *
-from timeStamp import *
+from .locSeparateThreads import *
+from .timeStamp import *
