@@ -8,7 +8,7 @@ cell-free DNA multi-feature extraction tools
 
 # Setting
 You can change Reference Genome and Specific location path align with your local
-by change in `cfMEX_tools/scr/__init__.py`
+by changing in `cfMEX_tools/scr/__init__.py`
 
 ```
 #################################################################################################################
