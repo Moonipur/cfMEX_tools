@@ -37,17 +37,27 @@ def main():
 
     elif args.command == "endmotif":
         start_time = time()
-        location = Threads_Location(f"{base_dir}/{EM_window}", args.thread)
         
+        if args.thread == 0:
+            args.thread = 1
+
         if args.thread > 24:
             args.thread = 24
             
-        with Pool(args.thread) as p:
-            p.starmap(EM_Run, zip(location, [args.input]*args.thread, [args.id]*args.thread))
-        cfMex_EM().save_csv(args.id, args.output)
-        os.remove(f'{args.id}_Metadata.csv')
-        
-        Time_Stamp(start_time)
+        if args.thread == 1:
+            location = singleThreads_Location(f"{base_dir}/{EM_window}")
+            EM_Run(location, args.input, args.id)
+            cfMex_EM().save_csv(args.id, args.output)
+            os.remove(f'{args.id}_Metadata.csv')
+            Time_Stamp(start_time)
+
+        elif args.thread > 1:
+            location = multiThreads_Location(f"{base_dir}/{EM_window}", args.thread)
+            with Pool(args.thread) as p:
+                p.starmap(EM_Run, zip(location, [args.input]*args.thread, [args.id]*args.thread))
+            cfMex_EM().save_csv(args.id, args.output)
+            os.remove(f'{args.id}_Metadata.csv')
+            Time_Stamp(start_time)
 
 
 if __name__ == "__main__":
