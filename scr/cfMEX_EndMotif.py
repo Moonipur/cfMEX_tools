@@ -19,20 +19,17 @@ class cfMex_EM:
     
     @staticmethod
     def reverse_complement(seq):
-        seq = seq[::-1]
-        new_seq = []
-        for i in seq:
-            if i == 'A':
-                new_seq.append('T')
-            elif i == 'T':
-                new_seq.append('A')
-            elif i == 'C':
-                new_seq.append('G')
-            elif i == 'G':
-                new_seq.append('C')
-            else:
-                new_seq.append('N')
-        return ''.join(new_seq)
+        comp_dict = {
+        'A': 'T',
+        'T': 'A',
+        'C': 'G',
+        'G': 'C',
+        'N': 'N'
+        }
+        seq_list = list(seq[::-1])
+        comp_arr = [comp_dict[seq_list[0]],comp_dict[seq_list[1]],comp_dict[seq_list[2]],comp_dict[seq_list[3]]]
+        
+        return ''.join(comp_arr)
     
     def count_reads(self, loc, Input_path, Id):
         nuc_comb = [''.join(p) for p in itertools.product(['A','C','G','T'], repeat=4)]
