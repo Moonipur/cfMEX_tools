@@ -1,5 +1,10 @@
 # cfMEX_tools
-cell-free DNA multi-feature extraction 
+cell-free DNA multi-feature extraction tools
+  - Fragment size
+  - End motif
+  - Short per Long ratio
+  - Nucleosome footprint
+
 
 # Setting
 You can change Reference Genome and Specific location path align with your local
