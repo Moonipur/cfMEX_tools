@@ -26,7 +26,7 @@ class cfMex_EM:
         'G': 'C',
         'N': 'N'
         }
-        seq_list = list(seq[::-1])
+        seq_list = list(seq.upper()[::-1])
         comp_arr = [comp_dict[seq_list[0]],comp_dict[seq_list[1]],comp_dict[seq_list[2]],comp_dict[seq_list[3]]]
         
         return ''.join(comp_arr)
