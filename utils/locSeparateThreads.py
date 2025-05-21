@@ -1,6 +1,13 @@
 import pandas as pd 
 
-def Threads_Location(chromfile,threads=2):
+def singleThreads_Location(chromfile):
+    locate = pd.read_csv(chromfile)
+    Chrom_List = []
+    for pos in range(locate.shape[0]):
+        Chrom_List.append([f'chr{locate["CHR"][pos]}',int(locate["STR"][pos]),int(locate["END"][pos])])
+    return Chrom_List
+
+def multiThreads_Location(chromfile,threads=2):
     Wind_List = []
     sep = 24 // threads
     integer = 24 % threads
