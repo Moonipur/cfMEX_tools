@@ -5,7 +5,7 @@ cell-free DNA multi-feature extraction tools
   - [ ] Short per Long ratio
   - [ ] Nucleosome footprint
         
-*uncheck boxes are still under develop*
+*uncheck boxes are currently under development*
 
 # Setting
 You can change Reference Genome and Specific location path align with your local
