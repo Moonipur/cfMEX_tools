@@ -24,7 +24,7 @@ class cfMex_FS:
             names=["chr", "start", "end", "mapq", "strand"]
         )
         df_clean = df.loc[df["mapq"] >= mapq]
-        df_clean.loc[:, "length"] = df_clean["end"] - df_clean["start"]
+        df_clean["length"] = df_clean["end"] - df_clean["start"]
 
         count_tmp = df_clean["length"].value_counts()
         self.fragsize[count_tmp.index] =  count_tmp.values
