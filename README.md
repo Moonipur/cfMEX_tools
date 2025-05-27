@@ -1,9 +1,9 @@
 # cfMEX_tools
 cell-free DNA multi-feature extraction tools
-  - Fragment size
-  - End motif
-  - Short per Long ratio
-  - Nucleosome footprint
+  - [x] Fragment size
+  - [x] End motif
+  - [ ] Short per Long ratio
+  - [ ] Nucleosome footprint
 
 
 # Setting
