@@ -1,5 +1,6 @@
 from .cfMEX_FragSize import *
 from .cfMEX_EndMotif import *
+from .cfMEX_Bam2Frag import *
 
 #################################################################################################################
 # SETTING
