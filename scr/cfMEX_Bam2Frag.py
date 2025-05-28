@@ -1,3 +1,9 @@
+"""
+Code: BAM-2-Fragment Convertion (Version 1.0)
+By: Songphon Sutthitthasakul (Moon)
+Date: 29-05-2025
+"""
+
 import numpy as np
 import pandas as pd
 
