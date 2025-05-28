@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "pandas", "numpy", "biopython", "pysam"]
+requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -9,9 +9,15 @@ description = "cell-free DNA multi-feature extraction tools"
 authors = [
     {name = "Songphon Sutthitthasakul", email = "songphon_sutthittha@cmu.ac.th"}
 ]
-license = {text = "MIT"}
+license = {text = "BY-NC-SA 4.0"}
 readme = "README.md"
-requires-python = ">=3.6"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas", 
+    "numpy", 
+    "biopython", 
+    "pysam"
+]
 
 [project.urls]
 "Homepage" = "https://github.com/Moonipur/cfMEX_tools"
