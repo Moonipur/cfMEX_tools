@@ -1,5 +1,5 @@
 """
-Code: BAM-2-Fragment Convertion (Version 1.0)
+Code: BAM-2-Fragment Convertion (Version 1.3)
 By: Songphon Sutthitthasakul (Moon)
 Date: 29-05-2025
 """
@@ -57,12 +57,13 @@ class BAM2FRAG:
         data = data.loc[data["mapq"] >= self.mapq]
         data['chr'] = dummy_chrom[data.iloc[0,0]]
 
-        output = self.Input.replace('.hg38.frag.bgz','.hg38.frag.tsv.bgz')
+        data = data.sort_values(by=['start', 'end'])
+
+        output = self.Input.replace('.frag.gz','.hg38.bed')
         data.to_csv(
             output, 
             index=False, 
             header=False, 
-            sep='\t', 
-            compression='gzip',
+            sep='\t',
         )
             
