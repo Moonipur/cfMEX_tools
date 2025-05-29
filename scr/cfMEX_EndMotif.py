@@ -1,10 +1,11 @@
 """
-Code: End Motif Extraction (Version 2.1)
+Code: End Motif Extraction (Version 2.3)
 By: Songphon Sutthitthasakul (Moon)
 Date: 29-05-2025
 """
 
 import __init__ 
+import gzip
 import pysam
 import itertools
 import pandas as pd
@@ -23,6 +24,11 @@ class cfMex_EM:
 
         bedfile = pysam.TabixFile(Input_path)
         EM_list =[]
+
+        with gzip.open(Input_path, 'rt') as file:
+            first_line = file.readline()
+            if 'chr' not in first_line:
+                loc[0] = loc[0].replace('chr','')
 
         for record in bedfile.fetch(loc[0], loc[1], loc[2]):
             fields = record.strip().split('\t')
