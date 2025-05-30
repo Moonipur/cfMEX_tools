@@ -51,7 +51,7 @@ class cfMex_SR:
         data = data.sort_values(by=['index'])
         sum_data = ','.join(map(str,data['spl'].tolist()))
         with open(f'{Output}.csv','a') as outfile:
-            run(['echo', sum_data], stdout=outfile)
+            run(['echo', f'{Id},{sum_data}'], stdout=outfile)
 
 
 def SR_Run(loc, Input, Id):
