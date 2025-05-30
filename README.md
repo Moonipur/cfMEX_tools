@@ -2,7 +2,7 @@
 cell-free DNA multi-feature extraction tools
   - [x] Fragment size
   - [x] End motif
-  - [ ] Short per Long ratio
+  - [x] Short per Long ratio
   - [ ] Nucleosome footprint
         
 *uncheck boxes are currently under development*
