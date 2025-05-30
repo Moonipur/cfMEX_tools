@@ -80,7 +80,7 @@ def main():
             
         if args.thread == 1:
             location = singleThreads_Location(f"{base_dir}/{Num_1Mb_window}")
-            EM_Run(location, args.input, args.id)
+            SR_Run(location, args.input, args.id)
             cfMex_SR().save_csv(args.id, args.output)
             os.remove(f'{args.id}_Metadata.csv')
             Time_Stamp(start_time)
