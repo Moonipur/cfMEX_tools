@@ -5,6 +5,7 @@ Date: 30-05-2025
 """
 
 import __init__ 
+import gzip
 import pysam
 import pandas as pd
 from subprocess import run
@@ -18,6 +19,12 @@ class cfMex_SR:
         long = 0
 
         bedfile = pysam.TabixFile(Input_path)
+
+        with gzip.open(Input_path, 'rt') as file:
+            first_line = file.readline()
+            if 'chr' not in first_line:
+                loc[1] = loc[1].replace('chr','')
+                
         for record in bedfile.fetch(loc[1], loc[2], loc[3]):
             fields = record.strip().split('\t')
             chrom, start, end, mapq, strand = fields[0], int(fields[1]), int(fields[2]), int(fields[3]), fields[4]
