@@ -1,5 +1,5 @@
 """
-Code: Short per Long Ratio Extraction (Version 1.0)
+Code: Short per Long Ratio Extraction (Version 1.1)
 By: Songphon Sutthitthasakul (Moon)
 Date: 30-05-2025
 """
@@ -18,7 +18,7 @@ class cfMex_SR:
         long = 0
 
         bedfile = pysam.TabixFile(Input_path)
-        for record in bedfile.fetch(loc[0], loc[1], loc[2]):
+        for record in bedfile.fetch(loc[1], loc[2], loc[3]):
             fields = record.strip().split('\t')
             chrom, start, end, mapq, strand = fields[0], int(fields[1]), int(fields[2]), int(fields[3]), fields[4]
 
@@ -36,12 +36,13 @@ class cfMex_SR:
             spl = short / long
 
         with open(f'{Id}_Metadata.csv','a') as meta:
-            run(['echo', f'{spl}'], stdout=meta)
+            run(['echo', f'{loc[0]},{spl}'], stdout=meta)
 
     @staticmethod
     def save_csv(Id, Output):
-        data = pd.read_csv(f'{Id}_Metadata.csv', header=None)
-        sum_data = ','.join(map(str,data[0].tolist()))
+        data = pd.read_csv(f'{Id}_Metadata.csv', header=None, names=['index','spl'])
+        data = data.sort_values(by=['index'])
+        sum_data = ','.join(map(str,data['spl'].tolist()))
         with open(f'{Output}.csv','a') as outfile:
             run(['echo', sum_data], stdout=outfile)
 
