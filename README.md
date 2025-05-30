@@ -1,5 +1,6 @@
 # cfMEX_tools
 cell-free DNA multi-feature extraction tools
+  - [x] Bam to Fragment file
   - [x] Fragment size
   - [x] End motif
   - [x] Short per Long ratio
