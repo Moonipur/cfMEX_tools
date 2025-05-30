@@ -1,5 +1,5 @@
 """
-Code: Short per Long Ratio Extraction (Version 1.1)
+Code: Short per Long Ratio Extraction (Version 1.2)
 By: Songphon Sutthitthasakul (Moon)
 Date: 30-05-2025
 """
