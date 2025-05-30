@@ -1,7 +1,7 @@
 """
-Code: Fragment Size Extraction (Version 3.0)
+Code: Fragment Size Extraction (Version 3.2)
 By: Songphon Sutthitthasakul (Moon)
-Date: 27-05-2025
+Date: 30-05-2025
 """
 
 import __init__ 
@@ -12,8 +12,9 @@ from subprocess import run
 
 class cfMex_FS:
     def __init__(self, Input_path):
+        self.max_size = 400
         self.Input_path = Input_path
-        self.fragsize = np.zeros(400)
+        self.fragsize = np.zeros(self.max_size)
 
     def count_reads(self, mapq=30):
         df = pd.read_csv(
@@ -25,9 +26,11 @@ class cfMex_FS:
         )
         df_clean = df.loc[df["mapq"] >= mapq]
         df_clean["length"] = df_clean["end"] - df_clean["start"]
+        df_clean = df_clean.loc[df_clean['length'] <= self.max_size]
 
         count_tmp = df_clean["length"].value_counts()
-        self.fragsize[count_tmp.index] =  count_tmp.values
+        for i in count_tmp.index:
+            self.fragsize[i-1] =  count_tmp[i]
 
     def save_csv(self, Id, Output):
         with open(f'{Output}.csv', 'a') as outfile:
