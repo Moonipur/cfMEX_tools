@@ -8,9 +8,11 @@ def singleThreads_Location(chromfile):
     return Chrom_List
 
 def multiThreads_Location(chromfile,threads=2):
+    file = open(chromfile,'r')
+    lines = len(file.readlines()) - 1
     Wind_List = []
-    sep = 24 // threads
-    integer = 24 % threads
+    sep = lines // threads
+    integer = lines % threads
     group = []
     for i in range(threads):
         if integer > 0:
@@ -36,6 +38,6 @@ def multiThreads_Location(chromfile,threads=2):
         if i < threads - 1:
             num_end = num_end + group[i+1] 
         else:
-            num_end = 24
+            num_end = lines
         Wind_List.append(Chrom_List)
     return Wind_List
