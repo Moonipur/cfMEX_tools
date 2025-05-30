@@ -4,7 +4,7 @@ def singleThreads_Location(chromfile):
     locate = pd.read_csv(chromfile)
     Chrom_List = []
     for pos in range(locate.shape[0]):
-        Chrom_List.append([f'chr{locate["CHR"][pos]}',int(locate["STR"][pos]),int(locate["END"][pos])])
+        Chrom_List.append([pos,f'chr{locate["CHR"][pos]}',int(locate["STR"][pos]),int(locate["END"][pos])])
     return Chrom_List
 
 def multiThreads_Location(chromfile,threads=2):
@@ -31,7 +31,7 @@ def multiThreads_Location(chromfile,threads=2):
         Chrom_List = []
         for pos in range(locate.shape[0]):
             if pos >= num_start and pos <= num_end:
-                Chrom_List.append([f'chr{locate["CHR"][pos]}',int(locate["STR"][pos]),int(locate["END"][pos])])
+                Chrom_List.append([pos,f'chr{locate["CHR"][pos]}',int(locate["STR"][pos]),int(locate["END"][pos])])
             else:
                 continue
         num_start = num_end + 1
