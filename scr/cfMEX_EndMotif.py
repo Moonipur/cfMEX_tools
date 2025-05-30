@@ -28,9 +28,9 @@ class cfMex_EM:
         with gzip.open(Input_path, 'rt') as file:
             first_line = file.readline()
             if 'chr' not in first_line:
-                loc[0] = loc[0].replace('chr','')
+                loc[1] = loc[1].replace('chr','')
 
-        for record in bedfile.fetch(loc[0], loc[1], loc[2]):
+        for record in bedfile.fetch(loc[1], loc[2], loc[3]):
             fields = record.strip().split('\t')
             chrom, start, end, mapq, strand = fields[0], int(fields[1]), int(fields[2]), int(fields[3]), fields[4]
 
