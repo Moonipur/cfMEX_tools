@@ -1,7 +1,7 @@
 """
-Code: cfMEX_tools (Version 0.4.0)
+Code: cfMEX_tools (Version 0.4.1)
 By: Songphon Sutthitthasakul (Moon)
-Date: 30-05-2025
+Date: 06-06-2025
 """
 
 from __init__ import *
@@ -45,7 +45,8 @@ def main():
     if args.command == "fragsize":
         start_time = time()
 
-        FS_Run(args.input, args.id, args.output)
+        c_format = check_n_Columns(args.input)
+        FS_Run(args.input, args.id, args.output, c_format)
         Time_Stamp(start_time)
         
     elif args.command == "endmotif":
@@ -59,17 +60,23 @@ def main():
             
         if args.thread == 1:
             location = singleThreads_Location(f"{base_dir}/{EM_window}")
-            EM_Run(location, args.input, args.id)
-            cfMex_EM().save_csv(args.id, args.output)
-            os.remove(f'{args.id}_Metadata.csv')
+            c_format = check_n_Columns(args.input)
+            EM_Run(location, args.input, args.id, c_format)
+            cfMex_EM().save_csv(args.id, args.output, c_format)
+            os.remove(f'{args.id}_Metadata_ref.csv')
+            if c_format == 'c6':
+                os.remove(f'{args.id}_Metadata_ori.csv')
             Time_Stamp(start_time)
 
         elif args.thread > 1:
             location = multiThreads_Location(f"{base_dir}/{EM_window}", args.thread)
+            c_format = check_n_Columns(args.input)
             with Pool(args.thread) as p:
-                p.starmap(EM_Run, zip(location, [args.input]*args.thread, [args.id]*args.thread))
-            cfMex_EM().save_csv(args.id, args.output)
-            os.remove(f'{args.id}_Metadata.csv')
+                p.starmap(EM_Run, zip(location, [args.input]*args.thread, [args.id]*args.thread, [c_format]*args.thread))
+            cfMex_EM().save_csv(args.id, args.output, c_format)
+            os.remove(f'{args.id}_Metadata_ref.csv')
+            if c_format == 'c6':
+                os.remove(f'{args.id}_Metadata_ori.csv')
             Time_Stamp(start_time)
 
     elif args.command == "splratio":
@@ -80,15 +87,17 @@ def main():
             
         if args.thread == 1:
             location = singleThreads_Location(f"{base_dir}/{Num_1Mb_window}")
-            SR_Run(location, args.input, args.id)
+            c_format = check_n_Columns(args.input)
+            SR_Run(location, args.input, args.id, c_format)
             cfMex_SR().save_csv(args.id, args.output)
             os.remove(f'{args.id}_Metadata.csv')
             Time_Stamp(start_time)
 
         elif args.thread > 1:
             location = multiThreads_Location(f"{base_dir}/{Num_1Mb_window}", args.thread)
+            c_format = check_n_Columns(args.input)
             with Pool(args.thread) as p:
-                p.starmap(SR_Run, zip(location, [args.input]*args.thread, [args.id]*args.thread))
+                p.starmap(SR_Run, zip(location, [args.input]*args.thread, [args.id]*args.thread, [c_format]*args.thread))
             cfMex_SR().save_csv(args.id, args.output)
             os.remove(f'{args.id}_Metadata.csv')
             Time_Stamp(start_time)
