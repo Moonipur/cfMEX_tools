@@ -1,5 +1,5 @@
 """
-Code: BAM-2-Fragment Convertion (Version 2.1)
+Code: BAM-2-Fragment Convertion (Version 2.2)
 By: Songphon Sutthitthasakul (Moon)
 Date: 12-06-2025
 """
@@ -87,9 +87,9 @@ class BAM2FRAG:
 
         data = data[['chr', 'start', 'end', 'mapq', 'strand']]
 
-        if self.ref == 'hg38'
+        if self.ref == 'hg38':
             data['chr'] = dummy_chrom_hg38[data.iloc[0,0]]
-        elif self.ref == 'hg19'
+        elif self.ref == 'hg19':
             data['chr'] = dummy_chrom_hg19[data.iloc[0,0]]
 
         data = data.sort_values(by=['start', 'end'])
