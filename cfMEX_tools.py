@@ -17,7 +17,7 @@ def main():
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     # Fragment size
-    parser_FS = subparsers.add_parser("fragsize", help="Extract End motif")
+    parser_FS = subparsers.add_parser("fragsize", help="Extract Fragment size")
     parser_FS.add_argument("--input", '-i', type=str, help="Fragment file path", required=True)
     parser_FS.add_argument("--output", '-o', type=str, help="Output file name", required=False, default='FS_output')
     parser_FS.add_argument("--id", type=str, help="Sample ID", required=False)
@@ -39,6 +39,11 @@ def main():
     # BAM-2-Fragment
     parser_BF = subparsers.add_parser("bam2frag", help="Convert BAM to Fragment")
     parser_BF.add_argument("--input", '-i', type=str, help="BAM file path", required=True)
+    
+    # Split Fragment
+    parser_SF = subparsers.add_parser("splitfrag", help="Split Fragment by Range")
+    parser_SF.add_argument("--input", '-i', type=str, help="Fragment file path", required=True)
+    parser_SF.add_argument("--thread", '-t', type=int, help="Number of Threads (default: 1)", required=False, default=1)
     
     args = parser.parse_args()
 
@@ -106,6 +111,25 @@ def main():
         start_time = time()
         BAM2FRAG(args.input).Convert()
         Time_Stamp(start_time)
+    
+    elif args.command == "splitfrag":
+        start_time = time()
+
+        if args.thread == 0:
+            args.thread = 1
+            
+        if args.thread == 1:
+            location = singleThreads_Range(f"{base_dir}/{FS_range}")
+            c_format = check_n_Columns(args.input)
+            Range_Run(location, args.input, c_format)
+            Time_Stamp(start_time)
+
+        elif args.thread > 1:
+            location = multiThreads_Range(f"{base_dir}/{FS_range}", args.thread)
+            c_format = check_n_Columns(args.input)
+            with Pool(args.thread) as p:
+                p.starmap(Range_Run, zip(location, [args.input]*args.thread, [c_format]*args.thread))
+            Time_Stamp(start_time)
         
 
 if __name__ == "__main__":
