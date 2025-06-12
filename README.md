@@ -8,6 +8,16 @@ cell-free DNA multi-feature extraction tools
         
 *uncheck boxes are currently under development*
 
+# Installation
+Check python version >= 3.12.0
+```
+python -V
+```
+Important modules
+```
+pip install numpy pandas pysam biopython
+```
+
 # Setting
 You can change Reference Genome and Specific location path align with your local
 by changing in `cfMEX_tools/scr/__init__.py`
