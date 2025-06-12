@@ -1,7 +1,7 @@
 """
-Code: BAM-2-Fragment Convertion (Version 2.0)
+Code: BAM-2-Fragment Convertion (Version 2.1)
 By: Songphon Sutthitthasakul (Moon)
-Date: 06-06-2025
+Date: 12-06-2025
 """
 
 import sys
@@ -12,12 +12,29 @@ from collections import Counter
 # from .Utility import reverse_complement
 
 class BAM2FRAG:
-    def __init__(self, input):
+    def __init__(self, input, ref_ver='hg38'):
         self.Input = input
         self.mapq = 30
+        self.ref = ref_ver
         
     def Convert(self):
-        dummy_chrom = {
+        dummy_chrom_hg19 = {
+            '1': 1, '2': 2,
+            '3': 3, '4': 4,
+            '5': 5, '6': 6,
+            '7': 7, '8': 8,
+            '9': 9, '10': 10,
+            '11': 11, '12': 12,
+            '13': 13, '14': 14,
+            '15': 15, '16': 16,
+            '15': 15, '16': 16,
+            '17': 17, '18': 18,
+            '19': 19, '20': 20,
+            '21': 21, '22': 22,
+            'X': 23, 'Y': 24,
+        } 
+
+        dummy_chrom_hg38 = {
             'chr1': 1, 'chr2': 2,
             'chr3': 3, 'chr4': 4,
             'chr5': 5, 'chr6': 6,
@@ -69,11 +86,15 @@ class BAM2FRAG:
         data['strand'] = strand
 
         data = data[['chr', 'start', 'end', 'mapq', 'strand']]
-        data['chr'] = dummy_chrom[data.iloc[0,0]]
+
+        if self.ref == 'hg38'
+            data['chr'] = dummy_chrom_hg38[data.iloc[0,0]]
+        elif self.ref == 'hg19'
+            data['chr'] = dummy_chrom_hg19[data.iloc[0,0]]
 
         data = data.sort_values(by=['start', 'end'])
 
-        output = self.Input.replace('.frag.gz','.hg38.bed')
+        output = self.Input.replace('.frag.gz',f'.{self.ref}.bed')
         data.to_csv(
             output, 
             index=False, 
@@ -82,4 +103,4 @@ class BAM2FRAG:
         )
             
 if __name__ == "__main__":
-    BAM2FRAG(sys.argv[1]).Convert()
+    BAM2FRAG(sys.argv[1], sys.argv[2]).Convert()
