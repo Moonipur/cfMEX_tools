@@ -1,2 +1,2 @@
-from utils import *
 from scr import *
+from utils import *

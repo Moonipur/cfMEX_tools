@@ -4,11 +4,14 @@ By: Songphon Sutthitthasakul (Moon)
 Date: 06-06-2025
 """
 
-import __init__ 
 import os
+from subprocess import run
+
 import numpy as np
 import pandas as pd
-from subprocess import run
+
+import __init__
+
 
 class cfMex_FS:
     def __init__(self, Input_path, Format):
@@ -18,33 +21,37 @@ class cfMex_FS:
         self.format = Format
 
     def count_reads(self, mapq=30):
-        if self.format == 'c5':
+        if self.format == "c5":
             df = pd.read_csv(
                 self.Input_path,
                 sep="\t",
                 compression="gzip",
                 header=None,
-                names=["chr", "start", "end", "mapq", "strand"]
+                names=["chr", "start", "end", "mapq", "strand"],
             )
-        elif self.format == 'c6':
+        elif self.format == "c6":
             df = pd.read_csv(
                 self.Input_path,
                 sep="\t",
                 compression="gzip",
                 header=None,
-                names=["chr", "start", "end", "mapq", "motif", "strand"]
+                names=["chr", "start", "end", "mapq", "motif", "strand"],
             )
         df_clean = df.loc[df["mapq"] >= mapq]
         df_clean["length"] = df_clean["end"] - df_clean["start"]
-        df_clean = df_clean.loc[df_clean['length'] <= self.max_size]
+        df_clean = df_clean.loc[df_clean["length"] <= self.max_size]
 
         count_tmp = df_clean["length"].value_counts()
         for i in count_tmp.index:
-            self.fragsize[i-1] =  count_tmp[i]
+            self.fragsize[i - 1] = count_tmp[i]
 
     def save_csv(self, Id, Output):
-        with open(f'{Output}.csv', 'a') as outfile:
-            run(['echo', f"{Id},{','.join(map(str,self.fragsize.tolist()))}"], stdout=outfile)
+        with open(f"{Output}.csv", "a") as outfile:
+            run(
+                ["echo", f"{Id},{','.join(map(str,self.fragsize.tolist()))}"],
+                stdout=outfile,
+            )
+
 
 def FS_Run(Input, Id, Output, Format):
     new_FS = cfMex_FS(Input, Format)

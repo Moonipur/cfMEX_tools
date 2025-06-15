@@ -1,14 +1,23 @@
-import pandas as pd 
+import pandas as pd
+
 
 def singleThreads_Location(chromfile):
     locate = pd.read_csv(chromfile)
     Chrom_List = []
     for pos in range(locate.shape[0]):
-        Chrom_List.append([pos,f'chr{locate["CHR"][pos]}',int(locate["STR"][pos]),int(locate["END"][pos])])
-    return Chrom_List
+        Chrom_List.append(
+            [
+                pos,
+                f'chr{locate["CHR"][pos]}',
+                int(locate["STR"][pos]),
+                int(locate["END"][pos]),
+            ]
+        )
+    return locate.shape[0], Chrom_List
 
-def multiThreads_Location(chromfile,threads=2):
-    file = open(chromfile,'r')
+
+def multiThreads_Location(chromfile, threads=2):
+    file = open(chromfile, "r")
     lines = len(file.readlines()) - 1
     Wind_List = []
     sep = lines // threads
@@ -31,13 +40,20 @@ def multiThreads_Location(chromfile,threads=2):
         Chrom_List = []
         for pos in range(locate.shape[0]):
             if pos >= num_start and pos <= num_end:
-                Chrom_List.append([pos,f'chr{locate["CHR"][pos]}',int(locate["STR"][pos]),int(locate["END"][pos])])
+                Chrom_List.append(
+                    [
+                        pos,
+                        f'chr{locate["CHR"][pos]}',
+                        int(locate["STR"][pos]),
+                        int(locate["END"][pos]),
+                    ]
+                )
             else:
                 continue
         num_start = num_end + 1
         if i < threads - 1:
-            num_end = num_end + group[i+1] 
+            num_end = num_end + group[i + 1]
         else:
             num_end = lines
         Wind_List.append(Chrom_List)
-    return Wind_List
+    return locate.shape[0], Wind_List
