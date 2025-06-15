@@ -116,9 +116,9 @@ class BAM2FRAG:
         data = data[["chr", "start", "end", "mapq", "strand"]]
 
         if self.ref == "hg38":
-            data["chr"] = dummy_chrom_hg38[data.iloc[0, 0]]
+            data["chr"] = dummy_chrom_hg38[f"{data.iloc[0, 0]}"]
         elif self.ref == "hg19":
-            data["chr"] = dummy_chrom_hg19[data.iloc[0, 0]]
+            data["chr"] = dummy_chrom_hg19[f"{data.iloc[0, 0]}"]
 
         data = data.sort_values(by=["start", "end"])
 
