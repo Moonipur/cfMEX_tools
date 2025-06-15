@@ -66,10 +66,10 @@ class cfMex_SR:
             run(["echo", f"{loc[0]},{spl}"], stdout=meta)
 
     @staticmethod
-    def save_csv(Id, Output):
+    def save_csv(Id, Output, loc_n):
         data = pd.read_csv(f"{Id}_Metadata.csv", header=None, names=["index", "spl"])
         data = data.sort_values(by=["index"])
-        if data.shape[0] == 2244:
+        if data.shape[0] == loc_n:
             sum_data = ",".join(map(str, data["spl"].tolist()))
             with open(f"{Output}.csv", "a") as outfile:
                 run(["echo", f"{Id},{sum_data}"], stdout=outfile)

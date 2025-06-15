@@ -1,7 +1,7 @@
 """
-Code: BAM-2-Fragment Convertion (Version 2.2)
+Code: BAM-2-Fragment Convertion (Version 2.3)
 By: Songphon Sutthitthasakul (Moon)
-Date: 12-06-2025
+Date: 15-06-2025
 """
 
 import itertools

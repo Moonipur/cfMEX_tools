@@ -175,7 +175,7 @@ def main():
             loc_n, location = singleThreads_Location(Num_1Mb_window)
             c_format = check_n_Columns(args.input)
             SR_Run(location, args.input, args.id, c_format)
-            cfMex_SR().save_csv(args.id, args.output)
+            cfMex_SR().save_csv(args.id, args.output, loc_n)
             os.remove(f"{args.id}_Metadata.csv")
             Time_Stamp(start_time)
 
@@ -192,7 +192,7 @@ def main():
                         [c_format] * args.thread,
                     ),
                 )
-            cfMex_SR().save_csv(args.id, args.output)
+            cfMex_SR().save_csv(args.id, args.output, loc_n)
             os.remove(f"{args.id}_Metadata.csv")
             Time_Stamp(start_time)
 
