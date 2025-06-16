@@ -50,7 +50,7 @@ def main():
     )
     parser_EM.add_argument("--id", type=str, help="Sample ID", required=False)
     parser_EM.add_argument(
-        "--location", "-l", type=str, help="Spcific location file", required=False, nargs='?'
+        "--location", "-l", type=str, help="Spcific location file", required=False
     )
     parser_EM.add_argument(
         "--thread",
@@ -76,7 +76,7 @@ def main():
     )
     parser_SR.add_argument("--id", type=str, help="Sample ID", required=False)
     parser_SR.add_argument(
-        "--location", "-l", type=str, help="Spcific location file", required=False, nargs='?'
+        "--location", "-l", type=str, help="Spcific location file", required=False
     )
     parser_SR.add_argument(
         "--thread",
@@ -99,7 +99,7 @@ def main():
         "--input", "-i", type=str, help="Fragment file path", required=True
     )
     parser_SF.add_argument(
-        "--range", "-r", type=str, help="Spcific fragment range", required=False, nargs='?'
+        "--range", "-r", type=str, help="Spcific fragment range", required=False
     )
     parser_SF.add_argument(
         "--thread",
