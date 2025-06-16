@@ -129,7 +129,7 @@ def main():
             args.thread = 24
 
         if args.thread == 1:
-            loc_n, location = singleThreads_Location(EM_window)
+            loc_n, location = singleThreads_Location(args.location)
             c_format = check_n_Columns(args.input)
             EM_Run(location, args.input, args.id, c_format)
             cfMex_EM().save_csv(args.id, args.output, c_format)
@@ -139,7 +139,7 @@ def main():
             Time_Stamp(start_time)
 
         elif args.thread > 1:
-            loc_n, location = multiThreads_Location(EM_window, args.thread)
+            loc_n, location = multiThreads_Location(args.location, args.thread)
             c_format = check_n_Columns(args.input)
             with Pool(args.thread) as p:
                 p.starmap(
@@ -164,7 +164,7 @@ def main():
             args.thread = 1
 
         if args.thread == 1:
-            loc_n, location = singleThreads_Location(Num_1Mb_window)
+            loc_n, location = singleThreads_Location(args.location)
             c_format = check_n_Columns(args.input)
             SR_Run(location, args.input, args.id, c_format)
             cfMex_SR().save_csv(args.id, args.output, loc_n)
@@ -172,7 +172,7 @@ def main():
             Time_Stamp(start_time)
 
         elif args.thread > 1:
-            loc_n, location = multiThreads_Location(Num_1Mb_window, args.thread)
+            loc_n, location = multiThreads_Location(args.location, args.thread)
             c_format = check_n_Columns(args.input)
             with Pool(args.thread) as p:
                 p.starmap(
@@ -200,13 +200,13 @@ def main():
             args.thread = 1
 
         if args.thread == 1:
-            loc_n, location = singleThreads_Range(FS_range)
+            loc_n, location = singleThreads_Range(args.range)
             c_format = check_n_Columns(args.input)
             Range_Run(location, args.input, c_format)
             Time_Stamp(start_time)
 
         elif args.thread > 1:
-            loc_n, location = multiThreads_Range(FS_range, args.thread)
+            loc_n, location = multiThreads_Range(args.range, args.thread)
             c_format = check_n_Columns(args.input)
             with Pool(args.thread) as p:
                 p.starmap(
