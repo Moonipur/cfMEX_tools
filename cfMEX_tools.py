@@ -50,7 +50,7 @@ def main():
     )
     parser_EM.add_argument("--id", type=str, help="Sample ID", required=False)
     parser_EM.add_argument(
-        "--location", "-l", type=str, help="Spcific location file", required=False
+        "--location", "-l", type=str, help="Spcific location file", required=False, default=argparse.SUPPRESS
     )
     parser_EM.add_argument(
         "--thread",
@@ -76,7 +76,7 @@ def main():
     )
     parser_SR.add_argument("--id", type=str, help="Sample ID", required=False)
     parser_SR.add_argument(
-        "--location", "-l", type=str, help="Spcific location file", required=False
+        "--location", "-l", type=str, help="Spcific location file", required=False, default=argparse.SUPPRESS
     )
     parser_SR.add_argument(
         "--thread",
@@ -99,7 +99,7 @@ def main():
         "--input", "-i", type=str, help="Fragment file path", required=True
     )
     parser_SF.add_argument(
-        "--range", "-r", type=str, help="Spcific fragment range", required=False
+        "--range", "-r", type=str, help="Spcific fragment range", required=False, default=argparse.SUPPRESS
     )
     parser_SF.add_argument(
         "--thread",
@@ -121,7 +121,7 @@ def main():
 
     elif args.command == "endmotif":
         start_time = time()
-        if args.location:
+        if 'location' in args:
             EM_window = args.location
         else:
             EM_window = f"{base_dir}/{EM_window}"
@@ -163,7 +163,7 @@ def main():
 
     elif args.command == "splratio":
         start_time = time()
-        if args.location:
+        if 'location' in args:
             Num_1Mb_window = args.location
         else:
             Num_1Mb_window = f"{base_dir}/{Num_1Mb_window}"
@@ -203,7 +203,7 @@ def main():
 
     elif args.command == "splitfrag":
         start_time = time()
-        if args.location:
+        if 'range' in args:
             FS_range = args.location
         else:
             FS_range = f"{base_dir}/{FS_range}"
