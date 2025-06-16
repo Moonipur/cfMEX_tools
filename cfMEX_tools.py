@@ -1,7 +1,7 @@
 """
-Code: cfMEX_tools (Version 0.4.2)
+Code: cfMEX_tools (Version 0.4.3)
 By: Songphon Sutthitthasakul (Moon)
-Date: 15-06-2025
+Date: 16-06-2025
 """
 
 import argparse
@@ -50,7 +50,7 @@ def main():
     )
     parser_EM.add_argument("--id", type=str, help="Sample ID", required=False)
     parser_EM.add_argument(
-        "--location", "-l", type=str, help="Spcific location file", required=False, default=f"{base_dir}/dataset/EM_Window.csv"
+        "--location", "-l", type=str, help="Spcific location file", required=False, default="dataset/EM_Window.csv"
     )
     parser_EM.add_argument(
         "--thread",
@@ -64,7 +64,7 @@ def main():
     # SpL Ratio
     parser_SR = subparsers.add_parser("splratio", help="Extract SpL ratio")
     parser_SR.add_argument(
-        "--input", "-i", type=str, help="Fragment file path", required=True, default=f"{base_dir}/dataset/1Mb_Window_Num.csv"
+        "--input", "-i", type=str, help="Fragment file path", required=True
     )
     parser_SR.add_argument(
         "--output",
@@ -76,7 +76,7 @@ def main():
     )
     parser_SR.add_argument("--id", type=str, help="Sample ID", required=False)
     parser_SR.add_argument(
-        "--location", "-l", type=str, help="Spcific location file", required=False
+        "--location", "-l", type=str, help="Spcific location file", required=False, default="dataset/1Mb_Window_Num.csv"
     )
     parser_SR.add_argument(
         "--thread",
@@ -99,7 +99,7 @@ def main():
         "--input", "-i", type=str, help="Fragment file path", required=True
     )
     parser_SF.add_argument(
-        "--range", "-r", type=str, help="Spcific fragment range", required=False, default=f"{base_dir}/dataset/FS_Range.csv"
+        "--range", "-r", type=str, help="Spcific fragment range", required=False, default="dataset/FS_Range.csv"
     )
     parser_SF.add_argument(
         "--thread",
@@ -121,6 +121,10 @@ def main():
 
     elif args.command == "endmotif":
         start_time = time()
+        
+        if args.location == 'dataset/EM_Window.csv':
+            args.location = f"{base_dir}/{args.location}"
+
 
         if args.thread == 0:
             args.thread = 1
@@ -160,6 +164,12 @@ def main():
     elif args.command == "splratio":
         start_time = time()
 
+        if args.location == 'dataset/1Mb_Window_Num.csv':
+            args.location = f"{base_dir}/{args.location}"
+
+        print(base_dir)
+        print(args.location)
+
         if args.thread == 0:
             args.thread = 1
 
@@ -195,6 +205,9 @@ def main():
 
     elif args.command == "splitfrag":
         start_time = time()
+
+        if args.location == 'dataset/FS_Range.csv':
+            args.location = f"{base_dir}/{args.location}"
 
         if args.thread == 0:
             args.thread = 1
