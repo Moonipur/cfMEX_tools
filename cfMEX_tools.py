@@ -50,7 +50,7 @@ def main():
     )
     parser_EM.add_argument("--id", type=str, help="Sample ID", required=False)
     parser_EM.add_argument(
-        "--location", "-l", type=str, help="Spcific location file", required=False
+        "--location", "-l", type=str, help="Spcific location file", required=False, default=f"{base_dir}/dataset/EM_Window.csv"
     )
     parser_EM.add_argument(
         "--thread",
@@ -64,7 +64,7 @@ def main():
     # SpL Ratio
     parser_SR = subparsers.add_parser("splratio", help="Extract SpL ratio")
     parser_SR.add_argument(
-        "--input", "-i", type=str, help="Fragment file path", required=True
+        "--input", "-i", type=str, help="Fragment file path", required=True, default=f"{base_dir}/dataset/1Mb_Window_Num.csv"
     )
     parser_SR.add_argument(
         "--output",
@@ -99,7 +99,7 @@ def main():
         "--input", "-i", type=str, help="Fragment file path", required=True
     )
     parser_SF.add_argument(
-        "--range", "-r", type=str, help="Spcific fragment range", required=False
+        "--range", "-r", type=str, help="Spcific fragment range", required=False, default=f"{base_dir}/dataset/FS_Range.csv"
     )
     parser_SF.add_argument(
         "--thread",
@@ -121,10 +121,6 @@ def main():
 
     elif args.command == "endmotif":
         start_time = time()
-        if args.location is not None:
-            EM_window = args.location
-        else:
-            EM_window = f"{base_dir}/{EM_window}"
 
         if args.thread == 0:
             args.thread = 1
@@ -163,11 +159,6 @@ def main():
 
     elif args.command == "splratio":
         start_time = time()
-        print(Num_1Mb_window)
-        if args.location is not None:
-            Num_1Mb_window = args.location
-        else:
-            Num_1Mb_window = f"{base_dir}/{Num_1Mb_window}"
 
         if args.thread == 0:
             args.thread = 1
@@ -204,10 +195,6 @@ def main():
 
     elif args.command == "splitfrag":
         start_time = time()
-        if args.range is not None:
-            FS_range = args.location
-        else:
-            FS_range = f"{base_dir}/{FS_range}"
 
         if args.thread == 0:
             args.thread = 1
