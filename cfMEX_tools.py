@@ -163,6 +163,7 @@ def main():
 
     elif args.command == "splratio":
         start_time = time()
+        print(Num_1Mb_window)
         if args.location is not None:
             Num_1Mb_window = args.location
         else:
